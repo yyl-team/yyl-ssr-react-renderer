@@ -1,5 +1,5 @@
 /*!
- * yyl-ssr-react-renderer esm 0.1.0
+ * yyl-ssr-react-renderer esm 0.1.1
  * (c) 2020 - 2020 jackness
  * Released under the MIT License.
  */
@@ -7,6 +7,7 @@ import fs from 'fs';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router';
+import { JSDOM } from 'jsdom';
 
 /** 标题 reg */
 const TITLE_REG = /(<title>)[^<]*(<\/title>)/;
@@ -29,6 +30,9 @@ function renderer(op) {
     const entryHtmlPath = tplPath;
     // jsdom
     globalAny.pageProps = props;
+    const { window } = new JSDOM();
+    globalAny.window = window;
+    global.document = window.document;
     if (fs.existsSync(entryHtmlPath)) {
         let html = fs.readFileSync(entryHtmlPath).toString();
         const App = (React.createElement(StaticRouter, { location: url, basename: basename },
