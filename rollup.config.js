@@ -3,7 +3,6 @@ import typescript from 'rollup-plugin-typescript2'
 import commonjs from 'rollup-plugin-commonjs'
 import nodeResolve from 'rollup-plugin-node-resolve'
 import json from 'rollup-plugin-json'
-import { terser } from 'rollup-plugin-terser'
 
 function buildBanner(type) {
   return [
@@ -28,7 +27,7 @@ const config = {
       typescript: require('typescript')
     })
   ],
-  external: ['react', 'react-dom/server', 'react-router', 'fs']
+  external: ['react', 'react-dom/server', 'react-router', 'fs', 'jsdom']
 }
 
 export default [
@@ -43,14 +42,7 @@ export default [
         sourcemap: false
       }
     ],
-    plugins: config.plugins.concat([
-      IS_PUBLISH &&
-        terser({
-          compress: {
-            passes: 2
-          }
-        })
-    ]),
+    plugins: config.plugins,
     external: config.external
   },
   {
