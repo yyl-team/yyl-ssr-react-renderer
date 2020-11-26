@@ -1,5 +1,5 @@
 /*!
- * yyl-ssr-react-renderer cjs 0.1.1
+ * yyl-ssr-react-renderer cjs 0.1.3
  * (c) 2020 - 2020 jackness
  * Released under the MIT License.
  */
@@ -29,6 +29,7 @@ function formatDescTag(desc) {
 function formatKeywordsTag(keywords) {
     return `<meta name='keywords' content='${keywords}' />`;
 }
+const { window } = new jsdom.JSDOM();
 /** 页面初始化 */
 function renderer(op) {
     const globalAny = global;
@@ -36,7 +37,6 @@ function renderer(op) {
     const entryHtmlPath = tplPath;
     // jsdom
     globalAny.pageProps = props;
-    const { window } = new jsdom.JSDOM();
     globalAny.window = window;
     global.document = window.document;
     if (fs.existsSync(entryHtmlPath)) {
