@@ -41,6 +41,8 @@ export interface RendererOption<P = {}> {
   Routes(): JSX.Element
 }
 
+const { window } = new JSDOM()
+
 /** 页面初始化 */
 export function renderer<P = {}>(op: RendererOption<P>) {
   const globalAny: any = global
@@ -49,7 +51,6 @@ export function renderer<P = {}>(op: RendererOption<P>) {
 
   // jsdom
   globalAny.pageProps = props
-  const { window } = new JSDOM()
   globalAny.window = window
   global.document = window.document
 
