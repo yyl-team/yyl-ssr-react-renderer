@@ -1,5 +1,5 @@
 /*!
- * yyl-ssr-react-renderer esm 0.1.3
+ * yyl-ssr-react-renderer esm 0.1.4
  * (c) 2020 - 2020 jackness
  * Released under the MIT License.
  */
@@ -27,7 +27,7 @@ const { window } = new JSDOM();
 /** 页面初始化 */
 function renderer(op) {
     const globalAny = global;
-    const { props, title, keywords, description, tplPath, url, basename, Routes } = op;
+    const { props, title, keywords, description, tplPath, url, basename, Routes, propsName = 'pageProps' } = op;
     const entryHtmlPath = tplPath;
     // jsdom
     globalAny.pageProps = props;
@@ -41,7 +41,7 @@ function renderer(op) {
             .replace(TITLE_REG, `$1${title}$2`)
             .replace(DESC_REG, formatDescTag(description || title))
             .replace(KEYWORD_REG, formatKeywordsTag(keywords || title))
-            .replace(SERVER_RENDER_REG, `${ReactDOM.renderToString(App)}</div><script>window.pageProps = ${JSON.stringify(props)}</script>`);
+            .replace(SERVER_RENDER_REG, `${ReactDOM.renderToString(App)}</div><script>window.${propsName} = ${JSON.stringify(props)}</script>`);
         return html;
     }
     else {

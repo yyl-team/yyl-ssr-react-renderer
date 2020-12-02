@@ -23,6 +23,8 @@ function formatKeywordsTag(keywords: string) {
 
 /** render option */
 export interface RendererOption<P = {}> {
+  /** props 属性名 window[propsName] */
+  propsName?: string
   /** pageProps */
   props: P
   /** 页面标题 */
@@ -46,7 +48,17 @@ const { window } = new JSDOM()
 /** 页面初始化 */
 export function renderer<P = {}>(op: RendererOption<P>) {
   const globalAny: any = global
-  const { props, title, keywords, description, tplPath, url, basename, Routes } = op
+  const {
+    props,
+    title,
+    keywords,
+    description,
+    tplPath,
+    url,
+    basename,
+    Routes,
+    propsName = 'pageProps'
+  } = op
   const entryHtmlPath = tplPath
 
   // jsdom
@@ -67,7 +79,7 @@ export function renderer<P = {}>(op: RendererOption<P>) {
       .replace(KEYWORD_REG, formatKeywordsTag(keywords || title))
       .replace(
         SERVER_RENDER_REG,
-        `${ReactDOM.renderToString(App)}</div><script>window.pageProps = ${JSON.stringify(
+        `${ReactDOM.renderToString(App)}</div><script>window.${propsName} = ${JSON.stringify(
           props
         )}</script>`
       )
