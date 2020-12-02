@@ -37,6 +37,8 @@ render<PageProps>({
 /// <reference types="react" />
 /** render option */
 export interface RendererOption<P = {}> {
+  /** 全局变量属性名 */
+  propsName?: string
   /** pageProps */
   props: P
   /** 页面标题 */
