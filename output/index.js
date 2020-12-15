@@ -1,5 +1,5 @@
 /*!
- * yyl-ssr-react-renderer cjs 0.1.4
+ * yyl-ssr-react-renderer cjs 0.1.5
  * (c) 2020 - 2020 jackness
  * Released under the MIT License.
  */
@@ -36,7 +36,7 @@ function renderer(op) {
     const { props, title, keywords, description, tplPath, url, basename, Routes, propsName = 'pageProps' } = op;
     const entryHtmlPath = tplPath;
     // jsdom
-    globalAny.pageProps = props;
+    globalAny[propsName] = props;
     globalAny.window = window;
     global.document = window.document;
     if (fs.existsSync(entryHtmlPath)) {
