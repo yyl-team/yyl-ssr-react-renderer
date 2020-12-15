@@ -62,7 +62,7 @@ export function renderer<P = {}>(op: RendererOption<P>) {
   const entryHtmlPath = tplPath
 
   // jsdom
-  globalAny.pageProps = props
+  globalAny[propsName] = props
   globalAny.window = window
   global.document = window.document
 
