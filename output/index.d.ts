@@ -1,6 +1,8 @@
 /// <reference types="react" />
 /** render option */
 export interface RendererOption<P = {}> {
+    /** props 属性名 window[propsName] */
+    propsName?: string;
     /** pageProps */
     props: P;
     /** 页面标题 */
