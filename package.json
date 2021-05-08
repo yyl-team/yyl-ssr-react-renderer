@@ -63,7 +63,7 @@
   },
   "name": "yyl-ssr-react-renderer",
   "repository": "https://github.com/jackness1208/yyl-ssr-react-renderer.git",
-  "author": "liudaojie <liudaojie@yy.com>",
+  "author": "jackness1208",
   "license": "MIT",
   "dependencies": {
     "@types/jsdom": "^16.2.5",
